@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     
     // for this time, we will use UICollectionViewFlowLayout (linear placing/ linear path)
-    private let layout: UICollectionViewFlowLayout = {
+    private var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: 50, height: 50)
@@ -30,6 +30,7 @@ class HomeViewController: UIViewController {
     private lazy var collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: self.layout)
     
     private let dataSource = DataSource()
+    private let delegate = EmojiCollectionViewDelegate(numberOfItemsPerRow: 6, interItemSpacing: 8)
     
     // /////////////////////////////////////////////////////////////////////////
     // MARK: - HomeViewController
@@ -41,7 +42,13 @@ class HomeViewController: UIViewController {
         self.view.addSubview(self.collectionView)
         
         self.collectionView.register(EmojiCell.self, forCellWithReuseIdentifier: EmojiCell.reusidentifier)
+        self.collectionView.register(EmojiHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: EmojiHeaderView.reusidentifier)
+        
+        // set hight of headerView or the data source method will not get called
+        self.layout.headerReferenceSize = CGSize(width: self.collectionView.frame.size.width, height: 50)
+        
         self.collectionView.dataSource = self.dataSource
+        self.collectionView.delegate = self.delegate
         
         self.makeConstraints()
     }

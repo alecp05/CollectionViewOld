@@ -1,5 +1,5 @@
 //
-//  EmojiCell.swift
+//  EmojiHeaderView.swift
 //  CollectionViewOld
 //
 //  Created by Alec on 06.09.23.
@@ -9,42 +9,38 @@ import UIKit
 import SnapKit
 
 // /////////////////////////////////////////////////////////////////////////
-// MARK: - EmojiCell -
+// MARK: - EmojiHeaderView -
 // /////////////////////////////////////////////////////////////////////////
 
-class EmojiCell: UICollectionViewCell {
-
+class EmojiHeaderView: UICollectionReusableView {
+    
     // /////////////////////////////////////////////////////////////////////////
     // MARK: - Properties
     
-    var emojiLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
-    }()
-
+    var textLabel: UILabel = UILabel()
+    
     // /////////////////////////////////////////////////////////////////////////
     // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        self.addSubview(self.emojiLabel)
-        self.backgroundColor = .lightGray.withAlphaComponent(0.1)
+        
+        self.addSubview(self.textLabel)
         self.makeConstraints()
     }
-
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // /////////////////////////////////////////////////////////////////////////
-    // MARK: - EmojiCell
+    // MARK: - EmojiHeaderView
+    // /////////////////////////////////////////////////////////////////////////
     
     func makeConstraints() {
         
-        self.emojiLabel.snp.makeConstraints() { make in
+        self.textLabel.snp.makeConstraints() { make in
             make.edges.equalToSuperview()
         }
     }
+    
 }

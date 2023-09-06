@@ -1,5 +1,5 @@
 //
-//  UICollectionViewCell.swift
+//  File.swift
 //  CollectionViewOld
 //
 //  Created by Alec on 06.09.23.
@@ -8,12 +8,12 @@
 import UIKit
 
 // /////////////////////////////////////////////////////////////////////////
-// MARK: - UICollectionViewCell.Extension -
+// MARK: - UICollectionReusableView.Extension -
 // /////////////////////////////////////////////////////////////////////////
 
-//public extension UICollectionViewCell {
-//    
-//    static var reusidentifier: String {
-//        return String(describing: self)
-//    }
-//}
+public extension UICollectionReusableView {
+    
+    static var reusidentifier: String {
+        return String(describing: self)
+    }
+}
