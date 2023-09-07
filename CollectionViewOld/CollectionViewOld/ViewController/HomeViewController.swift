@@ -35,6 +35,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     private let numberOfItemsPerRow: CGFloat = 6
     private let interItemSpacing: CGFloat = 8
     
+    private lazy var addButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addButtonClicked))
+        return button
+    }()
+    private lazy var deleteButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.trash, target: self, action: #selector(deleteButtonClicked))
+        button.isEnabled = false
+        return button
+    }()
+    
     // /////////////////////////////////////////////////////////////////////////
     // MARK: - HomeViewController
     // /////////////////////////////////////////////////////////////////////////
@@ -52,8 +62,10 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         
         self.collectionView.dataSource = self.dataSource
         self.collectionView.delegate = self
+        self.collectionView.allowsMultipleSelection = true
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addButtonClicked))
+        self.navigationItem.rightBarButtonItems = [self.addButton, self.deleteButton]
+        self.navigationItem.leftBarButtonItem = editButtonItem
         
         self.makeConstraints()
     }
@@ -62,6 +74,25 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         
         self.collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        // show hide buttons
+        self.deleteButton.isEnabled = self.isEditing
+        self.addButton.isEnabled = !self.isEditing
+        
+        self.collectionView.indexPathsForVisibleItems.forEach {
+            guard let emojiCell = self.collectionView.cellForItem(at: $0) as? EmojiCell else { return }
+            emojiCell.isEditing = editing
+        }
+        
+        if !self.isEditing {
+            self.collectionView.indexPathsForSelectedItems?.compactMap( { $0 } ).forEach {
+                self.collectionView.deselectItem(at: $0, animated: true)
+            }
         }
     }
     
@@ -82,6 +113,25 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
         let emojiCount = collectionView.numberOfItems(inSection: 0)
         let insertedIndex = IndexPath(item: emojiCount, section: 0)
         self.collectionView.insertItems(at: [insertedIndex])
+    }
+    
+    @objc
+    func deleteButtonClicked() {
+        
+        guard let selectedIndices = self.collectionView.indexPathsForSelectedItems else { return }
+        // determin which selection have been selected, iterate through selectedIndices and add it to a set
+        let sectionsToDelete = Set(selectedIndices.map({ $0.section }))
+        
+        // take each section from the set and iterate again so that we get the indexpaths
+        sectionsToDelete.forEach { section in
+            let indexPathsForSection = selectedIndices.filter({ $0.section == section })
+            
+            // now sort it to descending order
+            let sortedIndexPaths = indexPathsForSection.sorted(by: { $0.item > $1.item })
+            
+            self.dataSource.deleteEmojis(at: sortedIndexPaths)
+            self.collectionView.deleteItems(at: sortedIndexPaths)
+        }
     }
     
     // /////////////////////////////////////////////////////////////////////////
@@ -115,10 +165,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let emoji = Emoji.shared.emoji(at: indexPath) {
             
-            let controller = EmojiDetailViewController(emoji: emoji)
-            self.navigationController?.pushViewController(controller, animated: true)
+            if !self.isEditing {
+                
+                let controller = EmojiDetailViewController(emoji: emoji)
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
         }
     }
-    
 }
 

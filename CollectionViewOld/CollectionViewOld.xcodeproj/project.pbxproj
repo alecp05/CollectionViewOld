@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7034A7AB2AA8D0BB00FB1223 /* EmojiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7034A7AA2AA8D0BB00FB1223 /* EmojiCell.swift */; };
-		7034A7AF2AA8D13100FB1223 /* UICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7034A7AE2AA8D13100FB1223 /* UICollectionViewCell.swift */; };
 		7034A7B12AA8D18400FB1223 /* EmojiDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7034A7B02AA8D18400FB1223 /* EmojiDetailViewController.swift */; };
 		7034A7B32AA8D31000FB1223 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7034A7B22AA8D31000FB1223 /* Emoji.swift */; };
 		7034A7B52AA8DAD300FB1223 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7034A7B42AA8DAD300FB1223 /* DataSource.swift */; };
@@ -24,7 +23,6 @@
 /* Begin PBXFileReference section */
 		053AAA9CBBF4DC860818668B /* Pods_CollectionViewOld.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CollectionViewOld.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7034A7AA2AA8D0BB00FB1223 /* EmojiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCell.swift; sourceTree = "<group>"; };
-		7034A7AE2AA8D13100FB1223 /* UICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCell.swift; sourceTree = "<group>"; };
 		7034A7B02AA8D18400FB1223 /* EmojiDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiDetailViewController.swift; sourceTree = "<group>"; };
 		7034A7B22AA8D31000FB1223 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		7034A7B42AA8DAD300FB1223 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
@@ -89,7 +87,6 @@
 		7034A7AD2AA8D0F900FB1223 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				7034A7AE2AA8D13100FB1223 /* UICollectionViewCell.swift */,
 				7034A7BA2AA8E32400FB1223 /* UICollectionReusableView.swift */,
 			);
 			path = Extension;
@@ -269,7 +266,6 @@
 			files = (
 				709509FC2AA8CD2A004DF63C /* HomeViewController.swift in Sources */,
 				709509F82AA8CD2A004DF63C /* AppDelegate.swift in Sources */,
-				7034A7AF2AA8D13100FB1223 /* UICollectionViewCell.swift in Sources */,
 				7034A7AB2AA8D0BB00FB1223 /* EmojiCell.swift in Sources */,
 				7034A7B32AA8D31000FB1223 /* Emoji.swift in Sources */,
 				7034A7B92AA8E2F800FB1223 /* EmojiHeaderView.swift in Sources */,

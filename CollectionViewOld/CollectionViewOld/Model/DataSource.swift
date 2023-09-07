@@ -16,7 +16,7 @@ class DataSource: NSObject, UICollectionViewDataSource {
     // /////////////////////////////////////////////////////////////////////////
     // MARK: - Properties
     
-    let emoji = Emoji.shared
+    private let emoji = Emoji.shared
     
     // /////////////////////////////////////////////////////////////////////////
     // MARK: - UICollectionViewDataSource
@@ -76,5 +76,20 @@ extension DataSource {
         emojiData.append(emoji)
         
         self.emoji.data.updateValue(emojiData, forKey: category)
+    }
+    
+    func deleteEmoji(at indexPath: IndexPath) {
+        let category = self.emoji.sections[indexPath.section]
+        guard var emojiData = self.emoji.data[category] else { return }
+        
+        emojiData.remove(at: indexPath.item)
+        
+        self.emoji.data.updateValue(emojiData, forKey: category)
+    }
+    
+    func deleteEmojis(at indexPaths: [IndexPath]) {
+        for path in indexPaths {
+            self.deleteEmoji(at: path)
+        }
     }
 }

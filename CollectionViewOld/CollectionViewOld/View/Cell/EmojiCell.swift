@@ -22,6 +22,8 @@ class EmojiCell: UICollectionViewCell {
         label.textAlignment = .center
         return label
     }()
+    
+    var isEditing: Bool = false
 
     // /////////////////////////////////////////////////////////////////////////
     // MARK: - Life Cycle
@@ -40,6 +42,16 @@ class EmojiCell: UICollectionViewCell {
     
     // /////////////////////////////////////////////////////////////////////////
     // MARK: - EmojiCell
+    
+    override var isSelected: Bool {
+        didSet {
+            if self.isEditing {
+                self.backgroundColor = self.isSelected ? UIColor.systemRed.withAlphaComponent(0.5) : UIColor.systemGroupedBackground
+            } else {
+                self.backgroundColor = UIColor.systemGroupedBackground
+            }
+        }
+    }
     
     func makeConstraints() {
         
