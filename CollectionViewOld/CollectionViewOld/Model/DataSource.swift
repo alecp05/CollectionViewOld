@@ -59,3 +59,22 @@ class DataSource: NSObject, UICollectionViewDataSource {
         return emojiHeaderView
     }
 }
+
+// /////////////////////////////////////////////////////////////////////////
+// MARK: - DataSource.Extension -
+// /////////////////////////////////////////////////////////////////////////
+
+// in extension to keep it seperated from datasourceprotocol methods
+extension DataSource {
+    
+    // /////////////////////////////////////////////////////////////////////////
+    // MARK: - Functions
+    
+    func addEmoji(_ emoji: String, to category: Emoji.Category) {
+        guard var emojiData = self.emoji.data[category] else { return }
+        
+        emojiData.append(emoji)
+        
+        self.emoji.data.updateValue(emojiData, forKey: category)
+    }
+}

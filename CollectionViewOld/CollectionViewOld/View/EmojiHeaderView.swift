@@ -39,7 +39,8 @@ class EmojiHeaderView: UICollectionReusableView {
     func makeConstraints() {
         
         self.textLabel.snp.makeConstraints() { make in
-            make.edges.equalToSuperview()
+            make.verticalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview().inset(8)
         }
     }
     
